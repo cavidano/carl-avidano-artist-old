@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 
-   
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
 export default function Home({data}) {
   
@@ -9,10 +8,14 @@ export default function Home({data}) {
 
   const myEntries = entries.map((entry, index) => {
 
-    let title = entry.title;
+    let title = entry.titlye;
+    let category = entry.artworkCategory;
+    let image = entry.artworkImage.url;
+
+    console.log(image)
 
     return (
-        <p>{title}</p>
+        <p>Hello??? {title}, {category}</p>
     );
 })
 
@@ -23,13 +26,19 @@ export default function Home({data}) {
   )
 }
 
-
 export const query = graphql`
   query {
     craftApi {
       entries {
         title
-      }  
+        ... on CraftAPI_work_artworkShowcase_Entry {
+          artworkDescription
+          artworkCategory
+          artworkImage {
+            url
+          }
+        }
+      }
     }
   }
 `;

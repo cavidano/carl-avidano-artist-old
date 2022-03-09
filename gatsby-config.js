@@ -6,6 +6,18 @@
 
 module.exports = {
   plugins: [
+    `gatsby-plugin-image`,
+    `gatsby-remark-images`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          placeholder: `blurred`,
+          quality: 95
+        }
+      }
+    },
     {
       resolve: `gatsby-source-graphql`,
       options: {
@@ -13,9 +25,9 @@ module.exports = {
         fieldName: "craftApi",
         url: "https://manage.carlavidano.com/api",
         headers: {
-          Authorization: `Bearer pwRVQnLdpxjTF-idJy-XxOUhMEoCReKL`,
-        },
-        refetchInterval: 60
+          // Authorization: Bearer QMbU6O6w_euSSCavC7-ACnBqdTfBe6t9
+          Authorization: `Bearer QMbU6O6w_euSSCavC7-ACnBqdTfBe6t9`,
+        }
       },
     }
   ]
