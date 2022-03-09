@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { graphql } from 'gatsby';
+
+import { StaticImage } from 'gatsby-plugin-image';
 
 export default function Home({data}) {
   
   const entries = data.craftApi.entries;
-
+  
   const myEntries = entries.map((entry, index) => {
 
-    let title = entry.titlye;
-    let category = entry.artworkCategory;
-    let image = entry.artworkImage.url;
+    const title = entry.title;
+    const category = entry.artworkCategory;
+    const imageUrl = entry.artworkImage[0].url;
 
-    console.log(image)
+    console.log(imageUrl)
 
     return (
-        <p>Hello??? {title}, {category}</p>
+      <Fragment>
+        <p>{title} <br /> {category}</p>
+        <img src={imageUrl} alt="" />
+        </Fragment>
     );
 })
 
