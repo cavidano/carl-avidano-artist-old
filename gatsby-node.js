@@ -1,23 +1,59 @@
-// url: `https://manage.carlavidano.com/images/uploads/work/self-portrait-at-computer.jpg`
 
-// const { createRemoteFileNode } = require('gatsby-source-filesystem');
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
-// exports.onCreateNode = async ({
-//   node,
-//   actions: { createNode, createNodeField },
-//   createNodeId,
-//   getCache,
-// }) => {
-//     const fileNode = await createRemoteFileNode({
-//         url: `https://manage.carlavidano.com/images/uploads/work/self-portrait-at-computer.jpg`,
-//         parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
-//         createNode, // helper function in gatsby-node to generate the node
-//         createNodeId, // helper function in gatsby-node to generate the node id
-//         getCache,
-//     });
+  
+const axios = require('axios');
+const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
-//     // if the file was created, extend the node with "localFile"
-//     if (fileNode) {
-//         createNodeField({ node, name: "localFile", value: fileNode.id });
-//     }
-// }
+exports.createSchemaCustomization = ({
+  actions: { createTypes }
+}) => {
+  createTypes(`
+    type apod implements Node {
+      image: apodImage
+    }
+    type apodImage @dontInfer {
+      url: File @link(by: "url")
+    }
+  `);
+};
+
+exports.sourceNodes = async ({
+  actions: { createNode },
+  createNodeId,
+  createContentDigest
+}) => {
+  const { data } = await axios.get(
+    `https://api.nasa.gov/planetary/apod?api_key=${process.env.GATSBY_NASA_API_KEY}`
+  );
+
+  createNode({
+    ...data,
+    id: createNodeId(data.date),
+    internal: {
+      type: 'apod',
+      contentDigest: createContentDigest(data)
+    }
+  });
+};
+
+exports.onCreateNode = async ({
+  node,
+  actions: { createNode },
+  createNodeId,
+  cache,
+  store
+}) => {
+  if (node.internal.type === 'apod') {
+    node.image = await createRemoteFileNode({
+      url: node.url,
+      parentNodeId: node.id,
+      createNode,
+      createNodeId,
+      cache,
+      store
+    });
+  }
+};

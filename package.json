@@ -14,6 +14,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
     "gatsby": "^4.9.2",
     "gatsby-plugin-image": "^2.4.0",
     "gatsby-plugin-mdx": "^3.6.0",

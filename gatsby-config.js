@@ -4,10 +4,13 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   plugins: [
     `gatsby-plugin-image`,
-    `gatsby-remark-images`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -25,8 +28,7 @@ module.exports = {
         fieldName: "craftApi",
         url: "https://manage.carlavidano.com/api",
         headers: {
-          // Authorization: Bearer QMbU6O6w_euSSCavC7-ACnBqdTfBe6t9
-          Authorization: `Bearer QMbU6O6w_euSSCavC7-ACnBqdTfBe6t9`,
+          Authorization: `Bearer ${process.env.AVIDANO_ART_API_KEY}`,
         }
       },
     }
