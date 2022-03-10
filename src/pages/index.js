@@ -19,7 +19,7 @@ export default function Home({data}) {
     return (
       <Fragment>
         <p>{title} <br /> {category}</p>
-        <img src={imageUrl} alt="" />
+        <img src={imageUrl} alt="" width="500px" />
         </Fragment>
     );
 })
