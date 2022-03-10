@@ -1,26 +1,26 @@
 import React, { Fragment } from 'react';
 
-import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+// import { useStaticQuery, graphql } from 'gatsby';
+// import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 export default function Home({data}) {
 
-  const {
-    apod: { image }
-  } = useStaticQuery(graphql`
-    query {
-      apod {
-        id
-        image {
-          url {
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
-      }
-    }
-  `);
+  // const {
+  //   artwork: { image }
+  // } = useStaticQuery(graphql`
+  //   query {
+  //     artwork {
+  //       id
+  //       image {
+  //         url {
+  //           childImageSharp {
+  //             gatsbyImageData
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `);
   
   // const entries = data.craftApi.entries;
   
@@ -43,7 +43,7 @@ export default function Home({data}) {
   return (
     <div className="cool">
       {/* {myEntries} */}
-      <GatsbyImage alt="COOL" image={getImage(image.url)} />
+      {/* <GatsbyImage alt="COOL" image={getImage(image.url)} /> */}
     </div>
   )
 }

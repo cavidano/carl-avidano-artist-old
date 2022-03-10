@@ -6,10 +6,10 @@ exports.createSchemaCustomization = ({
   actions: { createTypes }
 }) => {
   createTypes(`
-    type apod implements Node {
-      image: apodImage
+    type artwork implements Node {
+      image: artworkImage
     }
-    type apodImage @dontInfer {
+    type artworkImage @dontInfer {
       url: File @link(by: "url")
     }
   `);
@@ -21,14 +21,18 @@ exports.sourceNodes = async ({
   createContentDigest
 }) => {
   const { data } = await axios.get(
+    // `https://manage.carlavidano.com/api?api_key=${process.env.GATSBY_ART_API_KEY}`
+
     `https://api.nasa.gov/planetary/apod?api_key=${process.env.GATSBY_NASA_API_KEY}`
   );
+
+  console.log("MY DATA ==", data)
 
   createNode({
     ...data,
     id: createNodeId(data.date),
     internal: {
-      type: 'apod',
+      type: 'artwork',
       contentDigest: createContentDigest(data)
     }
   });
@@ -41,7 +45,7 @@ exports.onCreateNode = async ({
   cache,
   store
 }) => {
-  if (node.internal.type === 'apod') {
+  if (node.internal.type === 'artwork') {
     node.image = await createRemoteFileNode({
       url: node.url,
       parentNodeId: node.id,
