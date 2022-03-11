@@ -21,12 +21,12 @@ exports.sourceNodes = async ({
   createContentDigest
 }) => {
   const { data } = await axios.get(
-    // `https://manage.carlavidano.com/api?api_key=${process.env.GATSBY_ART_API_KEY}`
+    `https://manage.carlavidano.com/api?api_key=${process.env.GATSBY_ART_API_KEY}`
 
-    `https://api.nasa.gov/planetary/apod?api_key=${process.env.GATSBY_NASA_API_KEY}`
+    // `https://api.nasa.gov/planetary/apod?api_key=${process.env.GATSBY_NASA_API_KEY}`
   );
 
-  console.log("MY DATA ==", data)
+  console.log("MY DATA ==", data.JSON.stringify)
 
   createNode({
     ...data,
