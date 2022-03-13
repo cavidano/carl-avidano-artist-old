@@ -29,6 +29,7 @@
     "node-fetch": "^2.6.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "sass": "^1.49.9",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

@@ -24,9 +24,12 @@ const Home = ({ data }) => {
   });
 
   return (
+    <Fragment>
+
     <div className="container narrow">
       {artwork}
     </div>
+    </Fragment>
   )
 }
 

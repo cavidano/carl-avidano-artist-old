@@ -28,12 +28,7 @@ exports.sourceNodes = async ({
 
   const artworkData = data.data;
 
-  // console.log("MY DATA ==", artworkData);
-
   artworkData.forEach(element => {
-
-    // console.log("MY EL ==", element);
-
     createNode({
       ...element,
       id: createNodeId(uuidv4()),
@@ -56,9 +51,6 @@ exports.onCreateNode = async ({
 }) => {
 
   if (node.internal.type === 'artwork') {
-      
-      // console.log("I am node => ", node);
-      
       node.image = await createRemoteFileNode({
       url: node.artworkImage,
       parentNodeId: node.id,
