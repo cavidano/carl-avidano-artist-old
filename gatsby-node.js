@@ -1,4 +1,3 @@
-
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 
@@ -29,11 +28,11 @@ exports.sourceNodes = async ({
 
   const artworkData = data.data;
 
-  console.log("MY DATA ==", artworkData);
+  // console.log("MY DATA ==", artworkData);
 
   artworkData.forEach(element => {
 
-    console.log("MY EL ==", element);
+    // console.log("MY EL ==", element);
 
     createNode({
       ...element,
@@ -56,10 +55,9 @@ exports.onCreateNode = async ({
   store
 }) => {
 
-
   if (node.internal.type === 'artwork') {
       
-      console.log("I am node => ", node);
+      // console.log("I am node => ", node);
       
       node.image = await createRemoteFileNode({
       url: node.artworkImage,
