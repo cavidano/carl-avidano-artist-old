@@ -20,17 +20,6 @@ module.exports = {
           quality: 95
         }
       }
-    },
-    {
-      resolve: `gatsby-source-graphql`,
-      options: {
-        typeName: "CraftAPI",
-        fieldName: "craftApi",
-        url: "https://manage.carlavidano.com/api",
-        headers: {
-          Authorization: `Bearer ${process.env.AVIDANO_ART_API_KEY}`,
-        }
-      },
-    }
+    } 
   ]
 }

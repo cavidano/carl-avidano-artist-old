@@ -1,5 +1,7 @@
 
 const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
+
 const { createRemoteFileNode } = require('gatsby-source-filesystem');
 
 exports.createSchemaCustomization = ({
@@ -20,22 +22,30 @@ exports.sourceNodes = async ({
   createNodeId,
   createContentDigest
 }) => {
-  const { data } = await axios.get(
-    `https://manage.carlavidano.com/api?api_key=${process.env.GATSBY_ART_API_KEY}`
 
-    // `https://api.nasa.gov/planetary/apod?api_key=${process.env.GATSBY_NASA_API_KEY}`
+  const { data } = await axios.get(
+    `https://manage.carlavidano.com/api/artwork.json`
   );
 
-  console.log("MY DATA ==", data.JSON.stringify)
+  const artworkData = data.data;
 
-  createNode({
-    ...data,
-    id: createNodeId(data.date),
-    internal: {
-      type: 'artwork',
-      contentDigest: createContentDigest(data)
-    }
+  console.log("MY DATA ==", artworkData);
+
+  artworkData.forEach(element => {
+
+    console.log("MY EL ==", element);
+
+    createNode({
+      ...element,
+      id: createNodeId(uuidv4()),
+      internal: {
+        type: 'artwork',
+        contentDigest: createContentDigest(element)
+      }
+    });
+
   });
+
 };
 
 exports.onCreateNode = async ({
@@ -45,9 +55,14 @@ exports.onCreateNode = async ({
   cache,
   store
 }) => {
+
+
   if (node.internal.type === 'artwork') {
-    node.image = await createRemoteFileNode({
-      url: node.url,
+      
+      console.log("I am node => ", node);
+      
+      node.image = await createRemoteFileNode({
+      url: node.artworkImage,
       parentNodeId: node.id,
       createNode,
       createNodeId,
