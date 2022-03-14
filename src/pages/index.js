@@ -25,10 +25,9 @@ const Home = ({ data }) => {
 
   return (
     <Fragment>
-
-    <div className="container narrow">
-      {artwork}
-    </div>
+      <div className="container narrow margin-y-5">
+        {artwork}
+      </div>
     </Fragment>
   )
 }
